@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "최하준 개발자 포트폴리오"
+description = "소프트웨어·콘텐츠 개발자를 준비하는 최하준의 경험, 기술, Vinylgroove 프로젝트와 연락처를 소개하는 정적 포트폴리오 웹사이트입니다."
+version = "1.0.0"
+id = "artifacts/hajun-portfolio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25318
+
+[services.development]
+run = "pnpm --filter @workspace/hajun-portfolio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/hajun-portfolio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/hajun-portfolio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25318"
+BASE_PATH = "/"
